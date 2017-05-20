@@ -1,0 +1,66 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Listado{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+
+    <div id="buttons">
+        <p>
+            <a href="{% url 'create_request' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+{% block list %}
+<div class="col-lg-12">
+      <div class="table-responsive">
+          <table class="table table-hover table-striped">
+              <thead>
+                  <tr>
+                      <th>N°</th>
+                      <th>Solicitante</th>
+                      <th>Fecha</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% if object_list %}
+                  {% for campo in object_list %}
+                     <tr>
+                        <td><a href="{% url 'detail_request' campo.pk %}">{{campo.n_request}}</a></td>
+                        <td><a href="{% url 'detail_request' campo.pk %}">{{campo.applicant}}</a></td>
+                        <td><a href="{% url 'detail_request' campo.pk %}">{{campo.date_create}}</a></td>
+                        {% ifequal campo.status '0' %}
+                        <td><a href="{% url 'detail_request' campo.pk %}">Borrador</a></td>
+                        {% endifequal %}
+                        {% ifequal campo.status '1' %}
+                        <td><a href="{% url 'detail_request' campo.pk %}">Confirmado</a></td>
+                        {% endifequal %}
+                        {% ifequal campo.status '2' %}
+                        <td><a href="{% url 'detail_request' campo.pk %}">Entregado</a></td>
+                        {% endifequal %}
+                        {% ifequal campo.status '3' %}
+                        <td><a href="{% url 'detail_request' campo.pk %}">Cancelado</a></td>
+                        {% endifequal %}
+                     </tr>
+                  {% endfor %}
+               {% else %}
+                   <h3></h3>
+               {% endif %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+<center>
+{% include "_pagination.html" %}
+</center>
+{% endblock %}
+</div>
+
+
+{% block form %}
+
+{% endblock %}

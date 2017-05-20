@@ -1,0 +1,69 @@
+{% extends "base_accounting.html" %}
+{% load staticfiles %}
+{% block title %}Crear{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block bottons %}
+ <div id="panel-bottons">
+
+    <div id="bottons">
+        <p><a href="{% url 'create_accountplan' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a></p>
+    </div>
+</div>      
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 100px;
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+<h3 class="page-header">Modificar Cuenta</h3>
+<!--#####row 1######-->
+        <table>
+            <tr>
+                <th>Code:</td>
+                <td><input class="form-control" name= code {{ form.code }}</td>
+                <th>Descripción:</td>
+                <td><input class="form-control" style="width:507px" name= description  {{ form.description }}</td>
+            </tr>
+
+                <tr><td><br><br></td></tr>
+          </table>
+<!--#####row 7######-->
+        <table>
+            <tr>
+                
+                <th>Activo</th>
+                <td><input type="checkbox" checked name= active </td>  
+
+            </tr>
+            <tr>
+              <td>{{ form.provider.errors }}
+                  {{ form.address.errors }}
+                  {{ form.phone.errors }}
+                  {{ form.rif.errors }}
+                  {{ form.active.errors }}</td>
+            </tr>
+
+                <tr><td><br><br></td></tr>
+        </table>
+
+<!--#################-->
+            <center>
+                   <p>
+                   <a href="{% url 'list_accountplan' %}"><button type="button" class="btn btn-default">Cancelar</button></a>
+                   <button type="submit" class="btn btn-default">Guardar</button>
+                   </p>
+                </center>
+
+   </form>
+</div>
+{% endblock %}

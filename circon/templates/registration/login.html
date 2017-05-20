@@ -1,0 +1,37 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Login" %}{% endblock %}
+{% block content %}
+{% url 'auth_password_reset' as auth_pwd_reset_url %}
+{% url 'registration_register' as register_url%}
+
+{% if form.errors %}
+<p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
+{% endif %}
+   <section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="login-form"><!--login form-->
+						<h2>Login</h2>
+						<form method="post" action="{% url 'auth_login' %}">{% csrf_token %}
+						<input type="text" placeholder="Usuario" name= username />
+							<input type="password" placeholder="Password" name= password />
+						<p>{% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Olvidastes</a> tu password?
+						    <a href="{{ register_url }}">Necesitas una cuenta</a>?{% endblocktrans %}</p>
+
+						<button type="submit" value="{% trans "login" %}" class="btn btn-default" style="width:100%;" >Login</button>
+						
+						<input type="hidden" name="next" value="{{ next }}" />
+						</form>
+						<br>
+						<a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook">
+    <span class="fa fa-facebook"></span> Login con Facebook
+  </a>
+						<!--/login form-->
+				</div>
+			</div>
+		</div>
+	</section><!--/form-->
+
+{% endblock %}

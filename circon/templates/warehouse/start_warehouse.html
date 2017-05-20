@@ -1,0 +1,85 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Almacén{% endblock %}
+{% block css %}
+{% endblock %}
+{% block javascript %}{% endblock %}
+{% block list %}
+<style>
+#container {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+.glyphicon {
+    font-size: 110px;
+}
+</style>
+<div class="col-lg-12">
+    {% if perms.products.add_entry %}
+    <div id="container">
+      <a href="{% url 'list_entry' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-copy" aria-hidden="true"></span><br>Entrada
+        </button>
+    </div>
+    {% endif %}
+    {% if perms.products.add_exit %}
+    <div id="container">
+      <a href="{% url 'list_exit' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-paste" aria-hidden="true"></span><br>Salida
+        </button>
+      </a>
+    </div>
+    {% endif %}
+    {% if perms.products.to_access_inventory %}
+    <div id="container">
+      <a href="{% url 'list_inventory' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-th" aria-hidden="true"></span><br>Inventario
+        </button>
+      </a>
+    </div>
+    {% endif %}
+    {% if perms.products.add_products %}
+    <div id="container">
+      <a href="{% url 'list_products' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-gift" aria-hidden="true"></span><br>Productos
+        </button>
+      </a>
+    </div>
+    {% endif %}
+    {% if perms.category.add_category %}
+    <div id="container">
+      <a href="{% url 'list_category' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-tags" aria-hidden="true"></span><br>Categorias
+        </button>
+      </a>
+    </div>
+    {% endif %}
+    {% if perms.units_measures.add_unitsmeasures %}
+    <div id="container">
+      <a href="{% url 'list_units_measures' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span><br>Unid de Medida
+        </button>
+      </a>
+    </div>
+    {% endif %}
+    {% if perms.products.to_access_request %}
+    <div id="container">
+      <a href="{% url 'list_request' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span><br>Solicitudes
+        </button>
+      </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block form %}
+
+{% endblock %}

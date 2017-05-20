@@ -1,0 +1,73 @@
+{% extends "base_conf.html" %}
+{% load staticfiles %}
+{% block title %}Detail{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+
+    <div id="buttons">
+         <p>     
+            <a href="{% url 'create_mycompany' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_mycompany' mycompany.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_mycompany' mycompany.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+         </p> 
+    </div>
+</div>      
+{% endblock %}
+{% block form %}
+<style>
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+   <h3 class="page-header">Mi Empresa</h3>
+
+<!--#####row 3######-->
+        <div>
+            <table>
+             <tr>
+                <th style="border-left:white 7px solid;">Nombre:</th>
+                <td style="border-left:white 15px solid;">{{ mycompany.name }}</td><tr><td><br></td></tr>
+
+              </tr>
+            </table>
+        </div>
+
+<!--#####row 3######-->
+        <div>
+            <table>
+             <tr>
+                <th style="border-left:white 7px solid;">Dirección:</th>
+                <td style="border-left:white 15px solid;">{{ mycompany.address }}</td><tr><td><br></td></tr>
+              </tr>
+            </table>
+        </div>
+
+<!--#####row 3######-->
+
+<div class="row">
+            <div class="col-lg-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Rif</th>
+                                <td>{{ mycompany.rif }}</td>
+                                <th>Email</th>
+                                <td>{{ mycompany.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefono</th>
+                                <td>{{ mycompany.phone }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </form>
+</div>
+
+{% endblock %}

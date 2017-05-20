@@ -1,0 +1,150 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Crear{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}
+{% endblock %}
+{% block buttons %}
+<!-- <script src="{% static "circon/js/jquery-1.3.2.min.js" %}"></script> -->
+<script src="{% static "circon/js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "circon/js/jquery.formset.js" %}"></script>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script>
+   $(function() {
+            $(".inline.{{ purchase_form.prefix }}").formset({
+                prefix: "{{ purchase_form.prefix }}",
+            })
+        })
+webshims.setOptions('forms-ext', {types: 'date'});
+webshims.polyfill('forms forms-ext');
+</script>
+
+
+ <div id="panel-buttons">
+
+    <div id="buttons">
+        <p>
+            {% ifequal purchase.status '1' %}
+            <a href="{% url 'update_entry' purchase.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            {% endifequal %}
+            {% if user.is_staff %}
+            <a href="{% url 'delete_entry' purchase.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+            {% endif %}
+            {% ifequal purchase.status '0' %}
+            <a href="{% url 'confirm_entry' purchase.pk %}"><button type="button" class="btn btn-primary">Confirmar</button></a>
+            {% endifequal %}
+            {% ifequal purchase.status '1' %}
+            <a href="{% url 'received_entry' purchase.pk %}"><button type="button" class="btn btn-primary">Recibido</button></a>
+            {% endifequal %}
+            {% ifequal purchase.status '2' %}
+            <a href="{% url 'cancel_entry' purchase.pk %}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endifequal %}
+        </p>
+    </div>
+</div>
+
+{% ifequal purchase.status '0' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft"><p>Borrador</p></div>
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '1' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '2' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '3' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 120px;
+
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+<!--#####row 1######-->
+        <table>
+          <legend>Registrar Ingreso</legend>
+            <br>
+            <tr>
+                <th>N° Ingreso:</th>
+                <td>{{ purchase.n_purchase }}</td>
+                <th></th>
+                <td></td>
+                <th>Proveedor:</th>
+                <td>{{ purchase.provider }}</td>
+            </tr>
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#################-->
+ <div class="table-responsive">
+          <table class="table table-hover table-striped">
+              <thead>
+               <tbody>
+               <tr>
+                  <td><label style="width: 66px;">Item</label></td>
+                  <td><label style="width: 150px;">Producto</label></td>
+                  <td><label style="width: 150px;">Cant.Comprada</label></td>
+                  <td><label style="width: 150px;">Cant.Recibida</label></td>
+               </tr>
+               <fieldset>
+               </thead>
+               <legend>Detalle de Compra</legend>
+                  {% for campo in page_obj %}
+                     <tr>
+                        <td style="width: 60px;">{{ forloop.counter }}</td>
+                        <td style="width: 150px;">{{ campo.products }}</td>
+                        <td style="width: 150px;">{{ campo.quan_purchase }}</td>
+                        <td style="width: 150px;">{{ campo.quantity }}</td>
+                     </tr>
+                  {% endfor %}
+               </fieldset>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  </table>
+  </form>
+</div>
+{% endblock %}

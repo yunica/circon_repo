@@ -1,0 +1,45 @@
+{% extends "base_conf.html" %}
+{% load staticfiles %}
+{% block title %}Respaldos{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+    <div id="buttons">
+
+    </div>
+</div>
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 600px;
+    height: 70px;
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+   <h3 class="page-header">Respaldos</h3>
+<!--#####row 3######-->
+<div class="row">
+            <div class="col-lg-6">
+                <div class="table-responsive">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Respaldar base de datos:</th>
+                                <td><a href="{% static "circondb" %}"><button type="button" class="btn btn-default">Descargar</button></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </form>
+</div>
+
+{% endblock %}

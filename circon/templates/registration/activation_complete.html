@@ -1,0 +1,11 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Activation complete" %}{% endblock %}
+{% block content %}
+{% url 'auth_login' as auth_login_url %}
+{% blocktrans %}
+<center><div style="background-color: #99FFCC; height:40px; border-radius:20px; margin-bottom:50px;"><h4>Gracias! <br> Ya puede continuar con sus compras.</h4></center>
+{% endblocktrans %}
+{% endblock %}
+
+

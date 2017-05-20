@@ -1,0 +1,140 @@
+{% extends "base_sales.html" %}
+{% load staticfiles %}
+{% block title %}Crear{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}
+{% endblock %}
+{% block buttons %}
+<!-- <script src="{% static "circon/js/jquery-1.3.2.min.js" %}"></script> -->
+<script src="{% static "circon/js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "circon/js/jquery.formset.js" %}"></script>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script>
+   $(function() {
+            $(".inline.{{ sale_form.prefix }}").formset({
+                prefix: "{{ sale_form.prefix }}",
+            })
+        })
+webshims.setOptions('forms-ext', {types: 'date'});
+webshims.polyfill('forms forms-ext');
+</script>
+
+
+ <div id="panel-buttons">
+
+    <div id="buttons">
+        <p>
+            <a href="{% url 'create_sale' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_sale' sale.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_sale' sale.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+            {% ifequal sale.status '0' %}
+            <a href="{% url 'confirm_sale' sale.pk %}"><button type="button" class="btn btn-primary">Confirmar</button></a>
+            {% endifequal %}
+            {% ifequal sale.status '1' %}
+            <a href="{% url 'cancel_sale' sale.pk %}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endifequal %}
+        </p>
+    </div>
+</div>
+
+ {% ifequal sale.status '0' %}
+         <div id="panel-status">
+            <p>
+               <div id="canceled-deactive"><p>Cancelado</p></div>
+               <div id="confirmed-deactive"><p>Confirmado</p></div>
+               <div id="draft"><p>Borrador</p></div>
+            </p>
+         </div>
+      {% endifequal %}
+      {% ifequal sale.status '1' %}
+         <div id="panel-status">
+            <p>
+               <div id="canceled-deactive"><p>Cancelado</p></div>
+               <div id="confirmed"><p>Confirmado</p></div>
+               <div id="draft-deactive"><p>Borrador</p></div>
+
+            </p>
+         </div>
+      {% endifequal %}
+      {% ifequal sale.status '2' %}
+         <div id="panel-status">
+            <p>
+               <div id="canceled-deactive"><p>Cancelado</p></div>
+               <div id="confirmed-deactive"><p>Confirmado</p></div>
+               <div id="draft-deactive"><p>Borrador</p></div>
+
+            </p>
+         </div>
+      {% endifequal %}
+
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 120px;
+
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+<!--#####row 1######-->
+        <table>
+          <legend>Registrar Venta (Facturar)</legend>
+            <br>
+            <tr>
+                <th>N° Factura:</th>
+                <td>{{ sale.n_sale }}</td>
+            </tr>
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#####row 2######-->
+        <table>
+            <tr>
+                <th>Cliente:</th>
+                <td>{{ sale.customer }}</td>
+
+                <th>Fecha:</th>
+                <td>{{ sale.date_sale }}</td>
+            </tr>
+
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#################-->
+ <div class="table-responsive">
+          <table class="table table-hover table-striped">
+              <thead>
+               <tbody>
+               <tr>
+                  <td><label style="width: 66px;">Item</label></td>
+                  <td><label style="width: 150px;">Producto</label></td>
+                  <td><label style="width: 150px;">Cantidad</label></td>
+                  <td><label style="width: 130px;">Precio</label></td>
+                  <td><label style="width: 130px;">Total</label></td>
+               </tr>
+               <fieldset>
+               </thead>
+               <legend>Detalle de Sale</legend>
+                  {% for campo in page_obj %}
+                     <tr>
+                        <td style="width: 60px;">{{ forloop.counter }}</td>
+                        <td style="width: 300px;">{{ campo.products }}</td>
+                        <td style="width: 150px;">{{ campo.quantity }}</td>
+                        <td style="width: 130px;">{{ campo.price }}</td>
+                        <td style="width: 130px;">{{ campo.total }}</td>
+                     </tr>
+                  {% endfor %}
+               </fieldset>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  </table>
+  </form>
+</div>
+{% endblock %}

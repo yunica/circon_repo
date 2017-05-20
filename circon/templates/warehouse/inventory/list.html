@@ -1,0 +1,71 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Inventario{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+{{ form.media }}
+    <div id="list-form">
+        </p>
+          <form action="" method="post">
+              {% csrf_token %}
+              {{ form.products }}
+          <button type="submit" class="btn btn-default" value="Search">Buscar</button>
+          </form>
+        </p>
+    </div>
+    <div id="buttons">
+        <p>
+          <select class="form-control" name="forma" onchange="location = this.value;">
+            <option>Elija Una Categoria</option>
+            {% for categories in category %}
+                <option value="{% url 'search_category' categories.pk %}">{{ categories.category }}</option>
+            {% endfor %}
+          </select>
+        </p>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block list %}
+<div class="col-lg-12">
+      <div class="table-responsive">
+          <table class="table table-hover table-striped">
+              <thead>
+                  <tr>
+                      <th>Producto</th>
+                      <th>Unid.Medida</th>
+                      <th>Categoria</th>
+                      <th>Cantidad</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% if object_list %}
+                  {% for campo in object_list %}
+                     <tr>
+                        <td><a href="#">{{campo.products}}</a></td>
+                        <td><a href="#">{{campo.measure}}</a></td>
+                        <td><a href="#">{{campo.category}}</a></td>
+                        <td><a href="#">{{campo.quantity}}</a></td>
+                     </tr>
+                  {% endfor %}
+               {% else %}
+                   <h3></h3>
+               {% endif %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+<center>
+{% include "_pagination.html" %}
+</center>
+{% endblock %}
+</div>
+
+
+{% block form %}
+
+{% endblock %}

@@ -1,0 +1,110 @@
+/*##############################Panel Status###################################*/
+#panel-status {
+    /*margin-top: -10px;*/
+    height: 35px;
+    background: #eeeeee; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  #eeeeee 0%, #eeeeee 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#eeeeee), color-stop(100%,#eeeeee)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg,  #eeeeee 0%,#eeeeee 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg,  #eeeeee 0%,#eeeeee 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg,  #eeeeee 0%,#eeeeee 100%); /* IE10+ */
+    background: linear-gradient(135deg,  #eeeeee 0%,#eeeeee 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    box-shadow: inset 3px 3px 3px rgba(255,255,255,.7), inset -2px -2px 3px rgba(0,0,0,.1), 2px 2px 10px rgba(0,0,0,.1);
+    /*width:100%;*/
+}
+
+#panel-status > p{
+    float: right;
+}
+
+#draft {
+    float: right;
+    margin-right: 3px;
+    background-color:#337ab7;
+    width: 125px;
+    height: 100%;
+
+}
+#draft > p{
+    margin-top: 5px;
+    margin-left: 25%;
+    color: #fff;
+}
+
+#draft-deactive {
+    float: right;
+    margin-right: 3px;
+    background-color:#ccc;
+    width: 125px;
+    height: 100%;
+
+
+}
+#draft-deactive > p{
+    margin-top: 5px;
+    margin-left: 25%;
+    color: #696969;
+}
+
+#confirmed {
+    float: right;
+    margin-right: 3px;
+    background-color:#337ab7;
+    width: 125px;
+    height: 100%;
+
+
+}
+
+#confirmed > p{
+    margin-top: 5px;
+    margin-left: 20%;
+    color: #fff;
+}
+
+#confirmed-deactive {
+    float: right;
+    margin-right: 3px;
+    background-color:silver;
+    width: 125px;
+    height: 100%;
+
+}
+
+#confirmed-deactive > p{
+    margin-top: 5px;
+    margin-left: 20%;
+    color: #696969;
+}
+
+#canceled {
+    float: right;
+    margin-right: 3px;
+    background-color:#d9534f;
+    width: 125px;
+    height: 100%;
+
+
+}
+
+#canceled > p{
+    margin-top: 5px;
+    margin-left: 20%;
+    color: #fff;
+}
+
+#canceled-deactive {
+    float: right;
+    margin-right: 3px;
+    background-color:silver;
+    width: 125px;
+    height: 100%;
+
+}
+
+#canceled-deactive > p{
+    margin-top: 5px;
+    margin-left: 20%;
+    color: #696969;
+}

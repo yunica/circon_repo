@@ -1,0 +1,39 @@
+{% extends "base_sales.html" %}
+{% load staticfiles %}
+{% block title %}Confirmar{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block botones %}
+ <div id="panel-buttons">
+    <div id="list-form">
+        <p>
+        <a href="{% url 'list_purchase' %}"><button type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-list"></span></button></a>
+        </p>
+    </div>
+    <div id="buttons">
+        
+    </div>
+</div>      
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<center>
+   <br>
+   <br>
+   <h4>Está usted seguro que desea cambiar el estado a confirmado?</h4>
+   <br>
+   <br>
+<form action="." method="post" accept-charset="utf-8">
+{% csrf_token %}
+<p>
+   
+      <input type="hidden" class="form-control" {{ form.status}}
+  
+
+    <a href="{% url 'list_purchase' %}"><button type="button" class="btn btn-default">Cancelar</button></a>
+    <button type="submit" class="btn btn-default" value="Confirm">Confirmar</button>
+</p>
+</form>    
+</center>
+{% endblock %}

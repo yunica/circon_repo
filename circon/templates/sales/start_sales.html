@@ -1,0 +1,41 @@
+{% extends "base_sales.html" %}
+{% load staticfiles %}
+{% block title %}Ventas{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block javascript %}{% endblock %}
+{% block list %}
+<style>
+#container {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+.glyphicon {
+    font-size: 110px;
+}
+</style>
+<div class="col-lg-12">
+   {% if user.is_superuser %}
+    <div id="container">
+      <a href="{% url 'list_sale' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><br>Ventas
+        </button>
+    </div>
+   {% endif %}
+   {% if user.is_superuser %}
+    <div id="container">
+      <a href="{% url 'list_customers' %}">
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>Proveedores
+        </button>
+      </a>
+    </div>
+   {% endif %}
+</div>
+{% endblock %}
+{% block form %}
+
+{% endblock %}

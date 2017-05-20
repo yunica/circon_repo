@@ -1,0 +1,46 @@
+{% extends "base_conf.html" %}
+{% load staticfiles %}
+{% block title %}Logs{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+
+{% endblock %}
+
+
+{% block list %}
+<div class="col-lg-12">
+      <div class="table-responsive">
+          <table class="table table-hover table-striped">
+              <thead>
+                  <tr>
+                      <th>Usuario</th>
+                      <th>Acción</th>
+                      <th>Solicitud</th>
+                      <th>Fecha de modificación</th>
+                  </tr>
+              </thead>
+              <tbody>
+               {% if object_list %}
+                  {% for queryset in object_list %}
+                     <tr>
+                        <td><a href="#">{{queryset.action_user_id}}</a></td>
+                        <td><a href="#">{{queryset.action_type}}</a></td>
+                        <td><a href="#">{{queryset.relationship_id}}</a></td>
+                        <td><a href="#">{{queryset.action_date}}</a></td>
+                     </tr>
+                  {% endfor %}
+                  {% else %}
+                   <h3></h3>
+               {% endif %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+<center>
+{% include "_pagination.html" %}
+</center>
+{% endblock %}
+</div>
+{% block form %}
+{% endblock %}

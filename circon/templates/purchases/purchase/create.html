@@ -1,0 +1,133 @@
+{% extends "base_purchases.html" %}
+{% load staticfiles %}
+{% block title %}Crear{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}
+{% endblock %}
+{% block buttons %}
+
+<script src="{% static "circon/js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "circon/js/jquery.formset.js" %}"></script>
+<script src="{% static "circon/angular/angular.min.js" %}"></script>
+<script>
+   $(function() {
+            $(".inline.{{ purchase_form.prefix }}").formset({
+                prefix: "{{ purchase_form.prefix }}",
+            })
+        })
+</script>
+
+
+
+
+ <div id="panel-buttons">
+
+    <div id="buttons">
+        <p>
+            <a href="{% url 'create_purchase' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 120px;
+
+}
+
+</style>
+<div id="container">
+   <form name="miFormulario"action="." method="POST">
+   {% csrf_token %}
+<!--#####row 1######-->
+    <legend>Registrar Compra</legend>
+<!--#####row 2######-->
+        <table>
+            <tr>
+                <th>Proveedor:</th>
+                <td><select class="form-control" style="width:170px" name= provider {{ form.provider }}</td>
+
+                <th>Fecha:</th>
+                <td><div class="form-group" style="margin-top:15px;">
+                      <label for="dtp_input2" class="col-md-1 control-label"></label>
+                      <div class="input-group date form_date col-md-9" data-date-format="dd/mm/yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                      <input class="form-control" size="16" name= date_purchase readonly {{ form.date_purchase}} <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </td>
+            </tr>
+
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#####row 3######-->
+        <table>
+            <tr>
+
+                <td><input class="form-control" type="hidden" style="width:170px" name= applicant {{ form.applicant }}</td>
+
+
+                <td><input class="form-control" type="hidden" style="width:170px" name= status {{ form.status }}</td>
+            </tr>
+
+        </table>
+
+<!--#################-->
+         <legend>Detalle Productos</legend>
+         <fieldset style="border-left:white 30px solid;">
+            <label style="width: 154px;">Producto</label>
+            <label style="width: 154px;">Cantidad</label>
+            <label style="width: 130px;">Precio</label>
+            <label style="width: 130px;">Total</label>
+
+           {{ purchase_form.management_form }}
+           {{ purchase_form.non_form_errors }}
+           {% for form in purchase_form %}
+              {{ form.id }}
+              <div class="inline {{ purchase_form.prefix }}">
+                  <label><select  class="form-control" style='width: 154px;' {{ form.products }} &nbsp;</label>
+                  <label><input class="form-control" style='width: 140px;' {{ form.quan_purchase }} &nbsp;</label>
+                  {% if field.is_hidden %}
+                      <label><input class="form-control" style='width: 140px;' {{ form.quantity }} &nbsp;</label> &nbsp;
+                  {% endif %}
+                  <label><input class="form-control" style='width: 154px;' {{ form.price }} &nbsp;</label>
+                  <label><input class="form-control" style='width: 154px;' {{ form.total_product }} &nbsp;</label> &nbsp;
+              </div>
+           {% endfor %}
+           </fieldset>
+              <div>
+               <br>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'>Base Imponible</label>
+                  <label><input class="form-control" style='width: 154px;' name= base {{ form.base }}</label>
+              </div>
+              <div>
+               <br>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'>Iva</label>
+                  <label><input class="form-control" style='width: 154px;' name= iva {{ form.iva }}</label>
+              </div>
+              <div>
+               <br>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'>Total</label>
+                  <label><input class="form-control" style='width: 154px;' name= total {{ form.total }}</label>
+              </div>
+
+           <p>
+         <a href="{% url 'list_purchase' %}"><button type="button" class="btn btn-default">Cancelar</button></a>
+         <button type="submit" class="btn btn-default">Guardar</button>
+         </p>
+
+          <br>
+
+   </form>
+</div>
+{% endblock %}

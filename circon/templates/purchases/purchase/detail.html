@@ -1,0 +1,187 @@
+{% extends "base_purchases.html" %}
+{% load staticfiles %}
+{% block title %}Crear{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}
+{% endblock %}
+{% block buttons %}
+<!-- <script src="{% static "circon/js/jquery-1.3.2.min.js" %}"></script> -->
+<script src="{% static "circon/js/jquery-1.11.3.min.js" %}"></script>
+<script src="{% static "circon/js/jquery.formset.js" %}"></script>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script>
+   $(function() {
+            $(".inline.{{ purchase_form.prefix }}").formset({
+                prefix: "{{ purchase_form.prefix }}",
+            })
+        })
+webshims.setOptions('forms-ext', {types: 'date'});
+webshims.polyfill('forms forms-ext');
+</script>
+
+
+ <div id="panel-buttons">
+
+    <div id="buttons">
+        <p>
+            <a href="{% url 'create_purchase' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_purchase' purchase.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_purchase' purchase.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+            <a href="{% url 'purchasepdf' purchase.pk%}"><button type="button" class="btn btn-warning">Imprimir</button></a>
+            {% ifequal purchase.status '0' %}
+            <a href="{% url 'confirm_purchase' purchase.pk %}"><button type="button" class="btn btn-primary">Confirmar</button></a>
+            {% endifequal %}
+            {% ifequal purchase.status '1' %}
+            <a href="{% url 'cancel_purchase' purchase.pk %}"><button type="button" class="btn btn-danger">Cancelar</button></a>
+            {% endifequal %}
+        </p>
+    </div>
+</div>
+
+{% ifequal purchase.status '0' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft"><p>Borrador</p></div>
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '1' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '2' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled-deactive"><p>Cancelado</p></div>
+              <div id="confirmed"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+     {% ifequal purchase.status '3' %}
+        <div id="panel-status">
+           <p>
+              <div id="canceled"><p>Cancelado</p></div>
+              <div id="confirmed-deactive"><p>Recibido</p></div>
+              <div id="confirmed-deactive"><p>Confirmado</p></div>
+              <div id="draft-deactive"><p>Borrador</p></div>
+
+           </p>
+        </div>
+     {% endifequal %}
+
+{% endblock %}
+{% block list %}
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 30px solid;
+    width: 120px;
+
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+<!--#####row 1######-->
+        <table>
+          <legend>Registrar Compra</legend>
+            <br>
+            <tr>
+                <th>N° Compra:</th>
+                <td>{{ purchase.n_purchase }}</td>
+            </tr>
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#####row 2######-->
+        <table>
+            <tr>
+                <th>Proveedor:</th>
+                <td>{{ purchase.provider }}</td>
+
+                <th>Fecha:</th>
+                <td>{{ purchase.date_purchase }}</td>
+            </tr>
+
+                <tr><td><br><br></td></tr>
+        </table>
+<!--#################-->
+ <div class="table-responsive" >
+          <table class="table table-hover table-striped" style="width:700px;" >
+              <thead>
+               <tbody>
+               <tr>
+                  <td><label style="width: 66px;">Item</label></td>
+                  <td><label style="width: 300px;">Producto</label></td>
+                  <td><label style="width: 150px;">Cantidad</label></td>
+                  <td><label style="width: 130px;">Precio</label></td>
+                  <td><label style="width: 130px;">Total</label></td>
+               </tr>
+               <fieldset>
+               </thead>
+               <legend>Detalle de Compra</legend>
+                  {% for campo in page_obj %}
+                     <tr>
+                        <td style="width: 60px;">{{ forloop.counter }}</td>
+                        <td style="width: 150px;">{{ campo.products }}</td>
+                        <td style="width: 150px;">{{ campo.quan_purchase }}</td>
+                        <td style="width: 130px;">{{ campo.price }}</td>
+                        <td style="width: 130px;">{{ campo.total_product }}</td>
+                     </tr>
+                  {% endfor %}
+
+               </fieldset>
+
+              </tbody>
+          </table>
+          </div>
+              <div>
+               <br>
+
+                  <label style='width: 150px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 150px;'>Base Imponible</label>
+                  <label>{{ purchase.base }}</label>
+              </div>
+              <div>
+               <br>
+                  <label style='width: 150px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 150px;'>Iva</label>
+                  <label>{{ purchase.iva }}</label>
+              </div>
+              <div>
+               <br>
+                  <label style='width: 150px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 154px;'></label>
+                  <label style='width: 150px;'>Total</label>
+                  <label>{{ purchase.total }}</label>
+              </div>
+      </div>
+
+  </div>
+  </table>
+  </form>
+</div>
+{% endblock %}

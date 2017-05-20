@@ -1,0 +1,100 @@
+{% extends "base_conf.html" %}
+{% load staticfiles %}
+{% block title %}Detalle{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+    <div id="buttons">
+         <p>     
+            <a href="{% url 'create_user' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_user' user.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_user' user.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+         </p> 
+    </div>
+</div>      
+{% endblock %}
+
+{% block submenu_configuration %}
+{{ block.super }}
+{% endblock %}
+
+{% block form %}
+<style>
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+   <h3 class="page-header">Usuario</h3>
+
+<!--#####row 3######-->
+        <div>
+            <table>
+             <tr>
+                <th style="border-left:#ecf0f5 7px solid;">Empresa:</th>
+                <td style="border-left:#ecf0f5 15px solid;">{{ user.company }}</td><tr><td><br></td></tr>
+
+              </tr>
+            </table>
+        </div>
+
+<!--#####row 3######-->
+        <div>
+            <table>
+             <tr>
+                <th style="border-left:#ecf0f5 7px solid;">Dirección:</th>
+                <td style="border-left:#ecf0f5 15px solid;">{{ user.address }}</td><tr><td><br></td></tr>
+              </tr>
+            </table>
+        </div>
+
+
+
+<!--#####row 3######-->
+
+<div class="row">
+            <div class="col-lg-6">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Usuario</th>
+                                <td>{{ user.username }}</td>
+                                <th>Email</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+
+                                <th>Nombre</th>
+                                <td>{{ user.first_name }}</td>
+                                <th>Apellido</th>
+                                <td>{{ user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefono</th>
+                                <td>{{ user.phone }}</td>
+                                <th>Rif</th>
+                                <td>{{ user.rif }}</td>
+                            </tr>
+                            <tr>
+                                <th>Proveedor</th>
+                                <td>{{ user.provider }}</td>
+                                <th>Cliente</th>
+                                <td>{{ user.customer }}</td>
+                            </tr>
+                            <tr>
+                                <th>Activo</th>
+                                <td>{{ user.is_active }}</td>
+                               
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+   {% if perms.purchase.to_access_purchase %}
+	 <a class="navbar-brand" href="{% url 'start_purchases' %}">Compras</a>
+   {% endif %}
+   {% if perms.products.to_access_warehouse %}
+	 <a class="navbar-brand" href="{% url 'start_warehouse' %}">Almacén</a>
+   {% endif %}
+   {% if perms.sale.to_access_sale %}
+	 <a class="navbar-brand" href="{% url 'start_sales' %}">Ventas</a>
+   {% endif %}
+   {% if perms.accountplan.to_access_accounting %}
+	 <a class="navbar-brand" href="{% url 'start_accounting' %}">Contabilidad</a>
+   {% endif %}
+	 {# <a class="navbar-brand" href="{% url 'index_view' %}">Sitio Web</a> #}
+   {% if user.is_superuser %}
+	 <a class="navbar-brand" href="{% url 'start_configuration' %}">Configuración</a>
+   {% endif %}
+	 </div>
+
+<!--<ul class="nav navbar-right top-nav">
+
+
+      <a class="navbar-brand" href="#">{{ user }}</a>
+      <a class="navbar-brand" href="{% url 'view_logout' %}">Cerrar Sesión</a>
+</ul>-->

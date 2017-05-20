@@ -1,0 +1,60 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Detalle{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+
+    <div id="buttons">
+         <p>     
+            <a href="{% url 'create_category' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_category' category.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_category' category.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+         </p> 
+    </div>
+</div>      
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 15px solid;
+}
+table {
+    width:160px;
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+   <h3 class="page-header">Categoria</h3>
+      <div style="width:700px; height:400px;">
+<!--#####row 1######-->
+        <div style="float:left;">
+            <table>
+             <tr><th>Categoria:</th></tr>
+            </table>
+        </div>
+        <div style="float:left;">
+            <table>
+              <tr><td>{{ category.category }}</td></tr>
+            </table>
+        </div>
+          <div style="float:left;">
+            <table>
+              <tr><th>Active:</th></tr>
+            </table>
+        </div>
+        <div style="float:left;">
+            <table>
+             <tr><td>{{category.active}}</td></tr><tr><td><br><br></td></tr>
+            </table>
+        </div>
+<!--#######3######-->
+  </div>
+</form>
+</div>
+
+{% endblock %}

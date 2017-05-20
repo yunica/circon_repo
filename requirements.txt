@@ -1,0 +1,13 @@
+Django==1.11
+django-braces==1.9.0
+django-extra-views==0.7.1
+django-import-export==0.4.5
+django-pure-pagination==0.3.0
+django-registration-defaults==0.4.4
+django-registration-redux==1.4
+django-wkhtmltopdf==3.0.0
+django-audit-log==0.7.0
+django-autocomplete-light==3.1.6
+djangorestframework==3.3.3
+python-social-auth==0.2.19
+pillow==3.2.0

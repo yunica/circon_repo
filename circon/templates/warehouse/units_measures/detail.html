@@ -1,0 +1,60 @@
+{% extends "base_warehouse.html" %}
+{% load staticfiles %}
+{% block title %}Detalle{% endblock %}
+{% block css %}{% endblock %}
+{% block javascript %}{% endblock %}
+{% block buttons %}
+ <div id="panel-buttons">
+
+    <div id="buttons">
+         <p>     
+            <a href="{% url 'create_units_measures' %}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Crear</button></a>
+            <a href="{% url 'update_units_measures' unitsmeasures.pk %}"><button type="button" class="btn btn-success">Modificar</button></a>
+            <a href="{% url 'delete_units_measures' unitsmeasures.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+         </p> 
+    </div>
+</div>      
+{% endblock %}
+{% block form %}
+<style>
+th {
+    border-right:#ecf0f5 15px solid;
+    border-left:#ecf0f5 15px solid;
+}
+table {
+    width:160px;
+}
+
+</style>
+<div id="container">
+   <form action="." method="POST">
+   {% csrf_token %}
+   <h3 class="page-header">Productos</h3>
+      <div style="width:700px; height:400px;">
+        <div style="float:left;">
+<!--#####row 1######-->
+            <table>
+             <tr><th>Producto:</th></tr>
+            </table>
+        </div>
+        <div style="float:left;">
+            <table>
+              <tr><td>{{ unitsmeasures.units_measures }}</td></tr>
+            </table>
+        </div>
+        <div style="float:left;">
+            <table>
+              <tr><th>Active:</th></tr>
+            </table>
+        </div>
+        <div style="float:left;">
+            <table>
+             <tr><td>{{unitsmeasures.active}}</td></tr><tr><td><br><br></td></tr>
+            </table>
+        </div>
+
+  </div>
+</form>
+</div>
+
+{% endblock %}

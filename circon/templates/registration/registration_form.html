@@ -1,0 +1,29 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+{% block content %}
+<section id="form"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-4">
+					<div class="signup-form">
+						<h2>Registro de Usuario</h2>
+					    <form method='post' action=''>
+					    	{% csrf_token %}
+					        <input type="text" placeholder="Name" name= username {{ form.username }}
+							<input type="email" placeholder="Email Address" name=email {{ form.email }} 
+							<input type="password" placeholder="Password" name= password1 {{ form.password1 }} 
+							<input type="password" placeholder="Repita el Password" name= password2 />
+							<button type="submit" value="{% trans "Send activation email" %}" class="btn btn-default" style="width:100%;">Registrarse</button>
+					    </form>
+					    <br>
+							<a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook">
+    <span class="fa fa-facebook"></span> Login con Facebook
+  </a>
+    				</div> 
+				</div> 
+			</div>
+		</div>
+	</section><!--/form-->
+
+{% endblock %}
